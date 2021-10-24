@@ -182,7 +182,9 @@ body {
 }
 .flexible-content{
     display: flex;
-    align-content: center;
+    /*align-content: center;*/
+    justify-content: space-between;
+    height: 100%;
     padding: 64px;
     color: var(--navbar-text-color);
 }

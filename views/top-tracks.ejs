@@ -37,6 +37,24 @@
 </header>
 
 <div class="flexible-content">
+    <ul>
+        <% data.topTracks.forEach(function(track) { %>
+            <a href="<%= track.external_urls.spotify %>" class="link">
+                <li>
+
+                    <img src="<%= track.album.images[2].url %>" class="song-img">
+                    <%= track.name %> -
+                    <% let i = 0; %>
+                    <% track.artists.forEach(function (artist){ %>
+                        <%= artist.name %>
+                        <% if(i !== (track.artists.length - 1) ){ %>|
+                        <% } %>
+                        <% i += 1; %>
+                    <% }) %>
+                </li>
+            </a>
+        <% }) %>
+    </ul>
     <a href="http://ims.ostis.net">
         <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
     </a>
