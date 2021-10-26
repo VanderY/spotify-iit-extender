@@ -27,7 +27,7 @@
 
 }
 
-#footer a{
+#footer a {
     color: var(--navbar-text-color);
     text-decoration: none;
 }
@@ -229,19 +229,26 @@
 }
 
 .item {
-    /*margin: 15px;*/
+    list-style-type: none;
+    margin-bottom: 15px;
     font-size: large;
     align-items: center;
     justify-content: space-between;
     margin-right: 20px;
 }
 
-.link button{
+.link button {
     margin-left: auto;
     width: 80px;
     height: 30px;
-    border-radius: 15px;
-
+    border-radius: 5px;
+    border: 1px solid var(--navbar-text-color);
     color: var(--navbar-text-color);
 }
 
+.link button:is(:focus, :hover) {
+    color: var(--navbar-bg-color);
+    background-color: var(--navbar-text-color);
+    border: 0;
+    font-weight: 750;
+}
