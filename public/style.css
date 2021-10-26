@@ -220,16 +220,24 @@
     color: var(--navbar-text-color);
     display: flex;
     justify-content: center;
-
 }
 
 .song-img {
     vertical-align: middle;
     margin-right: 20px;
 }
+.playlist-img {
+    vertical-align: middle;
+    margin-right: 20px;
+    max-width:192px;
+    max-height:192px;
+    width: auto;
+    height: auto;
+}
 
 .item {
     list-style-type: none;
+    display: flex;
     margin-bottom: 15px;
     font-size: large;
     align-items: center;
@@ -251,4 +259,36 @@
     background-color: var(--navbar-text-color);
     border: 0;
     font-weight: 750;
+}
+
+.main-playlist{
+    padding-top: 64px;
+    padding-bottom: 0;
+    height: auto;
+    color: var(--navbar-text-color);
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-playlist button{
+    width: 120px;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid var(--navbar-text-color);
+    color: var(--navbar-text-color);
+}
+
+.main-playlist button:is(:focus, :hover) {
+    color: var(--navbar-bg-color);
+    background-color: var(--navbar-text-color);
+    border: 0;
+    font-weight: 750;
+}
+.playlist-name {
+    margin: 20px;
+    font-size: x-large;
+
 }

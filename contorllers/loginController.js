@@ -1,11 +1,13 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-const spotifyApi = new SpotifyWebApi({
-    redirectUri: 'http://localhost:3000/callback',
-    clientId: '',
-    clientSecret: ''
-});
 
-exports.login = function (req, res) {
+
+exports.loginCallback = function (req, res) {
+    const spotifyApi = new SpotifyWebApi({
+        redirectUri: 'http://localhost:3000/callback',
+        clientId: 'e068dd1d33924b759f511834699cc6ba',
+        clientSecret: ''
+    });
+
     const error = req.query.error;
     const code = req.query.code;
 
@@ -50,4 +52,18 @@ exports.login = function (req, res) {
             console.error('Error getting Tokens:', error);
             res.send(`Error getting Tokens: ${error}`);
         });
+}
+
+exports.getLoginPage = (req, res) => {
+    let scopes = ['user-read-private', 'user-read-email', 'playlist-read-private', 'user-top-read'],
+        redirectUri = 'http://localhost:3000/callback',
+        clientId = 'e068dd1d33924b759f511834699cc6ba',
+        state = 'some-state-of-my-choice';
+
+    let spotifyApi = new SpotifyWebApi({
+        redirectUri: redirectUri,
+        clientId: clientId
+    });
+    let authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+    res.render("login", {url: authorizeURL})
 }

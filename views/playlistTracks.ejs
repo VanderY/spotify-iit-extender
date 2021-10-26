@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Extender</title>
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+</head>
+<body>
+<div id="page-container">
+
+    <%- include('header'); -%>
+    <div class="main-playlist">
+        <a href="<%= data.playlist.external_urls['spotify'] %>" class="main-playlist">
+            <% if (data.playlist.images.length !== 0){ %>
+                <img src="<%= data.playlist.images[0].url %>" class="playlist-img">
+            <% } else { %>
+                <img width="192" height="192" src="default_pic.png" class="playlist-img">
+            <% } %>
+            <div class="playlist-name">
+                <%= data.playlist.name %>
+            </div>
+
+
+        </a>
+        <div>
+            <a href="/playlists">
+                <button>Вернуться к плейлистам</button>
+            </a>
+            <a href="/">
+                <button>Добавить все треки в любимые</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="flexible-content">
+
+        <ul>
+            <% data.tracks.forEach(function(track) { %>
+                <a href="<%= track.track.external_urls['spotify'] %>" class="link">
+                    <li class="item">
+
+                        <img src="<%= track.track.album.images[2].url %>" class="song-img">
+                        <%= track.track.name %> -
+                        <% let i = 0; %>
+                        <% track.track.artists.forEach(function (artist){ %>
+                            <%= artist.name %>
+                            <% if(i !== (track.track.artists.length - 1) ){ %>&
+                            <% } %>
+                            <% i += 1; %>
+                        <% }) %>
+                    </li>
+                    <!--                    <button class="items-button">ADD</button>-->
+                </a>
+            <% }) %>
+        </ul>
+        <!--<a href="http://ims.ostis.net">
+            <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
+        </a>-->
+    </div>
+</div>
+
+<%- include('footer'); -%>
+
+</body>
+</html>

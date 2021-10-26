@@ -1,0 +1,25 @@
+<header id="navbar">
+    <nav class="navbar-container container">
+        <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu"
+                aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div id="navbar-menu" aria-labelledby="navbar-toggle">
+            <ul class="navbar-links">
+                <li class="navbar-item"><a class="navbar-link" href="/">HOME</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="#">TOP ARTISTS</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="#">RECENTLY PLAYED</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="/top-tracks">TOP TRACKS</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="/playlists">PLAYLISTS</a></li>
+            </ul>
+        </div>
+        <a href="<%= data.user.external_urls.spotify %>" class="home-link">
+            <div class="navbar-logo">
+                <img src="<%= data.user.images[0].url %>" class="navbar-logo">
+            </div>
+            <%= data.user.display_name %>
+        </a>
+    </nav>
+</header>

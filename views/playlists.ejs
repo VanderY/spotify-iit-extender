@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Extender</title>
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+</head>
+<body>
+<div id="page-container">
+
+    <%- include('header'); -%>
+
+
+    <div class="flexible-content">
+        <ul>
+            <% data.playlists.forEach(function(playlist) { %>
+                <a href="http://localhost:3000/playlists/<%= playlist.id %>" class="link">
+                    <li class="item">
+                        <% if (playlist.images.length !== 0){ %>
+                            <img src="<%= playlist.images[0].url %>" class="playlist-img">
+                        <% } else { %>
+                            <img width="192" height="192" src="default_pic.png" class="playlist-img">
+                        <% } %>
+                        <%= playlist.name %>
+
+                    </li>
+                    <button>VIEW</button>
+                </a>
+
+            <% }) %>
+        </ul>
+        <!--<a href="http://ims.ostis.net">
+            <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
+        </a>-->
+    </div>
+</div>
+
+<%- include('footer'); -%>
+
+</body>
+</html>

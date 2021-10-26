@@ -3,9 +3,13 @@ const router = express.Router()
 const indexController = require("./contorllers/indexController")
 const loginController = require("./contorllers/loginController")
 const toptracks = require("./contorllers/toptracks");
+const playlistsController = require("./contorllers/playlistsController");
 
-router.get("/callback", loginController.login)
-router.get("/", indexController.home)
-router.get("/top-tracks", toptracks.toptracks)
+router.get("/callback", loginController.loginCallback)
+router.get("/", indexController.getHomePage)
+router.get("/top-tracks", toptracks.getToptracks)
+router.get("/playlists", playlistsController.getPlaylists)
+router.get("/playlists/:playlistId", playlistsController.getPlaylistTracks)
+
 
 module.exports = router
