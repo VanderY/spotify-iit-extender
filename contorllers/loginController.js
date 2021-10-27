@@ -55,7 +55,7 @@ exports.loginCallback = function (req, res) {
 }
 
 exports.getLoginPage = (req, res) => {
-    let scopes = ['user-read-private', 'user-read-email', 'playlist-read-private', 'user-top-read'],
+    let scopes = ['user-read-private', 'user-read-email', 'playlist-read-private', 'user-top-read', 'user-library-read'],
         redirectUri = 'http://localhost:3000/callback',
         clientId = 'e068dd1d33924b759f511834699cc6ba',
         state = 'some-state-of-my-choice';

@@ -2,6 +2,43 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const loginController = require("./loginController")
 
 
+exports.addPlaylistToFavorite = async (req, res) => {
+    if (req.session.access_token) {
+        const spotifyApi = new SpotifyWebApi();
+        spotifyApi.setAccessToken(req.session.access_token);
+        let playlistId = req.params['playlistId']
+        user = await spotifyApi.getMe()
+        let tracks = await getTracksByPlaylistId(playlistId, req.session.access_token)
+        let playlist = await spotifyApi.getPlaylist(playlistId)
+        let tracksInFavorites = [];
+        let trackIds = [];
+        tracks.forEach((track) => {
+            trackIds.push(track.track.id)
+        })
+        let unLikedTracks = []
+        let temp, chunk = 50;
+        for (let i = 0; i < trackIds.length ; i += chunk) {
+            temp = trackIds.slice(i, i + chunk);
+            tracksInFavorites.push((await spotifyApi.containsMySavedTracks(temp)).body);
+
+        }
+        let currentTrackNumber = 0;
+        tracksInFavorites.forEach( (isInFavoriteArray) => {
+            let lastPreviousTrackNumber = currentTrackNumber;
+            for (currentTrackNumber; currentTrackNumber<isInFavoriteArray.length + lastPreviousTrackNumber; currentTrackNumber++){
+                if (!isInFavoriteArray[currentTrackNumber]){
+                    unLikedTracks.push(tracks[currentTrackNumber])
+                }
+            }
+        })
+        res.render("playlistToFavorite", {data: {user: user.body, tracks: unLikedTracks, playlist: playlist.body}})
+        console.log(playlistId)
+    }
+    else{
+        loginController.getLoginPage(req, res);
+    }
+}
+
 exports.getPlaylists = async (req, res) => {
     if (req.session.access_token) {
         let user;
@@ -32,21 +69,27 @@ exports.getPlaylistTracks = async (req, res) => {
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(req.session.access_token);
         user = await spotifyApi.getMe()
-
-        let tracks = []
-        let trackData
-        let trackOptions = {"limit": 50, "offset": 0};
-        do {
-            trackData = await spotifyApi.getPlaylistTracks(query['playlistId'], trackOptions)
-            trackData.body['items'].forEach((track) => {
-                tracks.push(track)
-            })
-            trackOptions = {"limit": 50, "offset": trackData.body.offset + trackData.body.limit};
-        } while (trackData.body.next != null);
+        let tracks = await getTracksByPlaylistId(query['playlistId'], req.session.access_token)
         let playlist = await spotifyApi.getPlaylist(query['playlistId'])
         res.render("playlistTracks", {data: {user: user.body, tracks: tracks, playlist: playlist.body}})
-
     } else {
         loginController.getLoginPage(req, res);
     }
+}
+
+async function getTracksByPlaylistId(playlistId, access_token){
+    const spotifyApi = new SpotifyWebApi();
+    spotifyApi.setAccessToken(access_token);
+
+    let tracks = []
+    let trackData
+    let trackOptions = {"limit": 50, "offset": 0};
+    do {
+        trackData = await spotifyApi.getPlaylistTracks(playlistId, trackOptions)
+        trackData.body['items'].forEach((track) => {
+            tracks.push(track)
+        })
+        trackOptions = {"limit": 50, "offset": trackData.body.offset + trackData.body.limit};
+    } while (trackData.body.next != null);
+    return tracks;
 }

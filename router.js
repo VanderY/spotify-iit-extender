@@ -10,6 +10,8 @@ router.get("/", indexController.getHomePage)
 router.get("/top-tracks", toptracks.getToptracks)
 router.get("/playlists", playlistsController.getPlaylists)
 router.get("/playlists/:playlistId", playlistsController.getPlaylistTracks)
+router.get("/add-playlist-to-favorite/:playlistId", playlistsController.addPlaylistToFavorite)
+
 
 
 module.exports = router
