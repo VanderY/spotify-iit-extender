@@ -1,11 +1,15 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-
+const config = require("config");
+const baseURL = config.get('BaseURL')
+const redirectUri = config.get('SpotifyLogin.redirectUri')
+const clientId = config.get('SpotifyLogin.clientId')
+const clientSecret = config.get('SpotifyLogin.clientSecret')
 
 exports.loginCallback = function (req, res) {
     const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3000/callback',
-        clientId: 'e068dd1d33924b759f511834699cc6ba',
-        clientSecret: ''
+        redirectUri: baseURL + redirectUri,
+        clientId: clientId,
+        clientSecret: clientSecret
     });
 
     const error = req.query.error;
@@ -56,12 +60,10 @@ exports.loginCallback = function (req, res) {
 
 exports.getLoginPage = (req, res) => {
     let scopes = ['user-read-private', 'user-read-email', 'playlist-read-private', 'user-top-read', 'user-library-read'],
-        redirectUri = 'http://localhost:3000/callback',
-        clientId = 'e068dd1d33924b759f511834699cc6ba',
         state = 'some-state-of-my-choice';
 
     let spotifyApi = new SpotifyWebApi({
-        redirectUri: redirectUri,
+        redirectUri: baseURL + redirectUri,
         clientId: clientId
     });
     let authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
