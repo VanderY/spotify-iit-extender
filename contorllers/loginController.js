@@ -67,5 +67,6 @@ exports.getLoginPage = (req, res) => {
         clientId: clientId
     });
     let authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+    console.log(authorizeURL)
     res.render("login", {url: authorizeURL})
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Extender</title>
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+</head>
+<body>
+<div id="page-container">
+
+    <%- include('header'); -%>
+
+
+    <div class="flexible-content">
+        <ul>
+            <% data.topArtists.forEach(function(artist) { %>
+                <a href="<%= artist.external_urls.spotify %>" class="link">
+                    <li class="item">
+
+                        <img src="<%= artist.images[2].url %>" class="song-img">
+                        <%= artist.name %>
+                    </li>
+                </a>
+            <% }) %>
+        </ul>
+        <!--<a href="http://ims.ostis.net">
+            <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
+        </a>-->
+    </div>
+</div>
+
+<%- include('footer'); -%>
+
+</body>
+</html>
