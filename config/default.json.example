@@ -1,0 +1,8 @@
+{
+  "BaseURL": "http://localhost:3000",
+  "SpotifyLogin":{
+    "redirectUri": "/callback",
+    "clientId": "e068dd1d33924b759f511834699cc6ba",
+    "clientSecret": "a3718b09d8604d35a528232afcdf6493"
+  }
+}
