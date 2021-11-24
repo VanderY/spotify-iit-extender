@@ -306,3 +306,41 @@
     margin: 20px;
     font-size: x-large;
 }
+
+.period-choose{
+    display: flex;
+    padding-top: 64px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: -100px;
+}
+
+.period-choose p{
+    padding-top: 32px;
+    padding-bottom: 32px;
+    color: var(--navbar-text-color);
+}
+
+.period-choose-buttons{
+    padding-top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.period-choose button{
+    width: 120px;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 10px;
+    border: 1px solid var(--navbar-text-color);
+    color: var(--navbar-text-color);
+}
+
+.period-choose button:is(:focus, :hover) {
+    color: var(--navbar-bg-color);
+    background-color: var(--navbar-text-color);
+    border: 0;
+    font-weight: 750;
+}
