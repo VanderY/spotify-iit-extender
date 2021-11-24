@@ -43,6 +43,7 @@
     max-width: 1000px;
     padding-left: 0;
     padding-right: 0;
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
 }
@@ -61,6 +62,13 @@
     display: flex;
     justify-content: space-between;
     height: auto;
+}
+
+.login-navbar-container{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    margin-top: 10px;
 }
 
 .navbar-item {
