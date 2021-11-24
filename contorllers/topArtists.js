@@ -8,7 +8,6 @@ exports.getTopArtists = async (req, res) => {
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(req.session.access_token);
         user = await spotifyApi.getMe()
-        //topTracks = await spotifyApi.getMyTopTracks();
 
         let options = {"limit": 10, "offset": 0};
         let topArtists = [];
