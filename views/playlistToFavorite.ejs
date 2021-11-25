@@ -20,18 +20,19 @@
                 <%= data.playlist.name %>
             </div>
 
-
         </a>
-        <div>
-            <a href="/playlists">
-                <button>Вернуться к плейлистам</button>
-            </a>
-            <a href="/add-playlist-to-favorite/<%=data.playlist.id%>">
-                <button>Добавить эти треки в любимые</button>
-            </a>
-        </div>
     </div>
-
+    <div class="period-choose">
+        <a href="/playlists">
+            <button>Вернуться к плейлистам</button>
+        </a>
+        <p>
+            <%if(typeof(data.message) !== 'undefined'){%>
+                <%= data.message%>
+            <%}%>
+        </p>
+        <h3> Added Tracks: </h3>
+    </div>
     <div class="flexible-content">
 
         <ul>

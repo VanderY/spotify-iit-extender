@@ -20,7 +20,6 @@
                 <%= data.playlist.name %>
             </div>
 
-
         </a>
         <div>
             <a href="/playlists">
@@ -30,6 +29,11 @@
                 <button>Добавить все треки в любимые</button>
             </a>
         </div>
+        <p>
+            <%if(typeof(data.message) !== 'undefined'){%>
+                <%= data.message%>
+            <%}%>
+        </p>
     </div>
 
     <div class="flexible-content">

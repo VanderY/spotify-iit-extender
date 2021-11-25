@@ -288,6 +288,11 @@
     flex-direction: column;
 }
 
+.main-playlist p{
+    padding-top: 32px;
+    color: var(--navbar-text-color);
+}
+
 .main-playlist button{
     width: 120px;
     height: 60px;
@@ -317,6 +322,12 @@
 }
 
 .period-choose p{
+    padding-top: 32px;
+    padding-bottom: 32px;
+    color: var(--navbar-text-color);
+}
+
+.period-choose h3{
     padding-top: 32px;
     padding-bottom: 32px;
     color: var(--navbar-text-color);
