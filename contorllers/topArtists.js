@@ -4,7 +4,7 @@ const loginController = require("./loginController")
 
 exports.getTopArtists = async (req, res) => {
     if (req.session.access_token) {
-        const query = req.params
+        const query = req.query
         let user;
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(req.session.access_token);
@@ -28,9 +28,7 @@ exports.getTopArtists = async (req, res) => {
 
         } while (data.body.next != null)
 
-        console.log(user)
-
-        res.render("top-artists", {data: {user: user.body, topArtists: topArtists}})
+        res.render("top-artists", {data: {user: user.body, topArtists: topArtists, time_range: time_range}})
     } else {
         loginController.getLoginPage(req, res);
     }

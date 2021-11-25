@@ -10,19 +10,27 @@
 
     <%- include('header'); -%>
     <div class="period-choose">
-
+        <p>Top Artists</p>
         <div class="period-choose-buttons">
-            <a href="/top-artists/short_term" class="link">
+            <a href="?timeRange=short_term" class="link">
                 <button>last 4 weeks</button>
             </a>
-            <a href="/top-artists/medium_term" class="link">
+            <a href="?timeRange=medium_term" class="link">
                 <button>last 6 month</button>
             </a>
-            <a href="/top-artists/long_term" class="link">
+            <a href="?timeRange=long_term" class="link">
                 <button>all time</button>
             </a>
         </div>
-        <p>Top artists for 6 month</p>
+        <%if(data.time_range === "short_term"){%>
+            <p>Last 4 weeks</p>
+        <%}%>
+        <%if(data.time_range === "medium_term"){%>
+            <p>Last 6 month</p>
+        <%}%>
+        <%if(data.time_range === "long_term"){%>
+            <p>All time</p>
+        <%}%>
     </div>
     <div class="flexible-content">
 
