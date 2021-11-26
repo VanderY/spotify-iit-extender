@@ -60,7 +60,7 @@ exports.loginCallback = function (req, res) {
 
 exports.getLoginPage = (req, res) => {
     let scopes = ['user-read-private', 'user-read-email', 'playlist-read-private', 'user-top-read', 'user-library-read',
-                'user-read-recently-played'],
+                'user-read-recently-played', 'user-library-modify'],
         state = 'some-state-of-my-choice';
 
     let spotifyApi = new SpotifyWebApi({

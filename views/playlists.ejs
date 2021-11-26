@@ -14,7 +14,7 @@
     <div class="flexible-content">
         <ul>
             <% data.playlists.forEach(function(playlist) { %>
-                <a href="http://localhost:3000/playlists/<%= playlist.id %>" class="link">
+                <a href="/playlists/<%= playlist.id %>" class="link">
                     <li class="item">
                         <% if (playlist.images.length !== 0){ %>
                             <img src="<%= playlist.images[0].url %>" class="playlist-img">
@@ -29,9 +29,6 @@
 
             <% }) %>
         </ul>
-        <!--<a href="http://ims.ostis.net">
-            <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
-        </a>-->
     </div>
 </div>
 
