@@ -7,7 +7,6 @@
 </head>
 <body>
 <div id="page-container">
-
     <%- include('header'); -%>
 
     <div class="search" style="padding-top: 100px; margin-left: 50px;">
@@ -29,23 +28,25 @@
     </div>
 
     <div class="flexible-content">
-        <div class="search" style="margin-top: 100px;">
-            <form action="/search">
-                <label for="search" style="color: azure">Search:</label>
-                <input type="search" name="search" id="search" style="color: azure;">
-                <br>
-                <br>
-                <div class="dropdown" style="color: azure">
-                    <label for="searchParam">Search by:</label>
-                    <select name="searchParam" id="searchParam" style="color: azure;">
-                        <option value="byTrackName">by track name</option>
-                        <option value="byAlbumName">by album name</option>
-                        <option value="byArtistName">by artist name</option>
-                    </select>
-                    <button style="color: azure">Search</button>
-                </div>
-            </form>
-        </div>
+        <ul>
+            <% data.searchResult.forEach(function(track) { %>
+                <a href="<%= track.external_urls.spotify %>" class="link">
+                    <li class="item">
+
+                        <img src="<%= track.album.images[2].url %>" class="song-img">
+                        <%= track.name %> -
+                        <% let i = 0; %>
+                        <% track.artists.forEach(function (artist){ %>
+                            <%= artist.name %>
+                            <% if(i !== (track.artists.length - 1) ){ %>&
+                            <% } %>
+                            <% i += 1; %>
+                        <% }) %>
+                    </li>
+                    <button class="items-button">ADD</button>
+                </a>
+            <% }) %>
+        </ul>
     </div>
 </div>
 
