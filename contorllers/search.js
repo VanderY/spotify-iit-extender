@@ -15,32 +15,40 @@ exports.getSearchResults = async (req, res) => {
         let options = {"limit": 10, "offset": 0};
         if (query['searchParam'] === "byTrackName" ||
             query['searchParam'] === "byAlbumName" ||
-            query['searchParam'] === "byArtistName"){
+            query['searchParam'] === "byArtistName") {
             searchParam = query['searchParam'];
         }
 
         if (searchParam === "byTrackName") {
-            // let options = {"limit": 10, "offset": 0};
+            let options = {"limit": 10, "offset": 0};
             let data
-            data = await spotifyApi.searchTracks(query['search'])
-            data.body['tracks']['items'].forEach((track) => {
-                searchResult.push(track)
-            })
-            // options = {"limit": 10, "offset": data.body.offset + data.body.limit};
-        }
-        else if (searchParam === "byAlbumName") {
+            do {
+                data = await spotifyApi.searchTracks(query['search'])
+                data.body['tracks']['items'].forEach((track) => {
+                    searchResult.push(track)
+                })
+                options = {"limit": 10, "offset": data.body.offset + data.body.limit};
+            } while (data.body.next != null)
+        } else if (searchParam === "byAlbumName") {
+            let options = {"limit": 10, "offset": 0};
             let data
-            data = await spotifyApi.searchTracks("album:" + query['search'])
-            data.body['tracks']['items'].forEach((track) => {
-                searchResult.push(track)
-            })
-        }
-        else if (searchParam === "byArtistName") {
+            do {
+                data = await spotifyApi.searchTracks("album:" + query['search'])
+                data.body['tracks']['items'].forEach((track) => {
+                    searchResult.push(track)
+                })
+                options = {"limit": 10, "offset": data.body.offset + data.body.limit};
+            } while (data.body.next != null)
+        } else if (searchParam === "byArtistName") {
+            let options = {"limit": 10, "offset": 0};
             let data
-            data = await spotifyApi.searchTracks("artist:" + query['search'])
-            data.body['tracks']['items'].forEach((track) => {
-                searchResult.push(track)
-            })
+            do {
+                data = await spotifyApi.searchTracks("artist:" + query['search'])
+                data.body['tracks']['items'].forEach((track) => {
+                    searchResult.push(track)
+                })
+                options = {"limit": 10, "offset": data.body.offset + data.body.limit};
+            } while (data.body.next != null)
         }
 
 
