@@ -4,13 +4,19 @@ const loginController = require("./loginController")
 
 exports.getTopArtists = async (req, res) => {
     if (req.session.access_token) {
+        const query = req.query
         let user;
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(req.session.access_token);
         user = await spotifyApi.getMe()
-        //topTracks = await spotifyApi.getMyTopTracks();
+        let time_range = "medium_term"
 
-        let options = {"limit": 10, "offset": 0};
+        if (query['timeRange'] === "short_term" ||
+            query['timeRange'] === "medium_term" ||
+            query['timeRange'] === "long_term"){
+            time_range = query['timeRange'];
+        }
+        let options = {"limit": 10, "offset": 0, "time_range": time_range};
         let topArtists = [];
         let data
         do {
@@ -18,13 +24,11 @@ exports.getTopArtists = async (req, res) => {
             data.body['items'].forEach((artist) => {
                 topArtists.push(artist)
             })
-            options = {"limit": 10, "offset": data.body.offset + data.body.limit};
+            options = {"limit": 10, "offset": data.body.offset + data.body.limit, "time_range": time_range};
 
         } while (data.body.next != null)
 
-        console.log(user)
-
-        res.render("top-artists", {data: {user: user.body, topArtists: topArtists}})
+        res.render("top-artists", {data: {user: user.body, topArtists: topArtists, time_range: time_range}})
     } else {
         loginController.getLoginPage(req, res);
     }

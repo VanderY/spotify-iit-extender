@@ -8,7 +8,6 @@ exports.getRecentlyPlayedTracks = async (req, res) => {
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(req.session.access_token);
         user = await spotifyApi.getMe()
-        //topTracks = await spotifyApi.getMyTopTracks();
 
         let options = {"limit": 50};
         let topTracks = [];

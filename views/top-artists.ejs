@@ -9,23 +9,46 @@
 <div id="page-container">
 
     <%- include('header'); -%>
-
-
+    <div class="period-choose">
+        <p>Top Artists</p>
+        <div class="period-choose-buttons">
+            <a href="?timeRange=short_term" class="link">
+                <button>last 4 weeks</button>
+            </a>
+            <a href="?timeRange=medium_term" class="link">
+                <button>last 6 month</button>
+            </a>
+            <a href="?timeRange=long_term" class="link">
+                <button>all time</button>
+            </a>
+        </div>
+        <%if(data.time_range === "short_term"){%>
+            <p>Last 4 weeks</p>
+        <%}%>
+        <%if(data.time_range === "medium_term"){%>
+            <p>Last 6 month</p>
+        <%}%>
+        <%if(data.time_range === "long_term"){%>
+            <p>All time</p>
+        <%}%>
+    </div>
     <div class="flexible-content">
+
         <ul>
             <% data.topArtists.forEach(function(artist) { %>
                 <a href="<%= artist.external_urls.spotify %>" class="link">
                     <li class="item">
 
-                        <img src="<%= artist.images[2].url %>" class="song-img">
-                        <%= artist.name %>
+                        <img src="<%= artist.images[0].url %>" class="artist-img">
+
                     </li>
+                    <div>
+                        <%= artist.name %>
+                    </div>
                 </a>
             <% }) %>
         </ul>
-        <!--<a href="http://ims.ostis.net">
-            <img src="https://www.altair.com.ve/altair-alimentos/imagenes/ostis%20und.png">
-        </a>-->
+
     </div>
 </div>
 

@@ -16,25 +16,43 @@ exports.addPlaylistToFavorite = async (req, res) => {
             trackIds.push(track.track.id)
         })
         let unLikedTracks = []
+        let unLikedTracksIds = []
         let temp, chunk = 50;
-        for (let i = 0; i < trackIds.length ; i += chunk) {
+        for (let i = 0; i < trackIds.length; i += chunk) {
             temp = trackIds.slice(i, i + chunk);
             tracksInFavorites.push((await spotifyApi.containsMySavedTracks(temp)).body);
-
         }
         let currentTrackNumber = 0;
-        tracksInFavorites.forEach( (isInFavoriteArray) => {
-            let lastPreviousTrackNumber = currentTrackNumber;
-            for (currentTrackNumber; currentTrackNumber<isInFavoriteArray.length + lastPreviousTrackNumber; currentTrackNumber++){
-                if (!isInFavoriteArray[currentTrackNumber]){
-                    unLikedTracks.push(tracks[currentTrackNumber])
+        tracksInFavorites.forEach((isInFavoriteArray) => {
+            for (let i = 0; i < isInFavoriteArray.length; i++) {
+                if (!isInFavoriteArray[i]) {
+                    unLikedTracks.push(tracks[currentTrackNumber]);
+                    unLikedTracksIds.push(trackIds[currentTrackNumber]);
                 }
+                currentTrackNumber++;
             }
         })
-        res.render("playlistToFavorite", {data: {user: user.body, tracks: unLikedTracks, playlist: playlist.body}})
-        console.log(playlistId)
-    }
-    else{
+        if (unLikedTracksIds.length !== 0) {
+            let temp, chunk = 50;
+            for (let i = 0; i < unLikedTracksIds.length; i += chunk) {
+                temp = unLikedTracksIds.slice(i, i + chunk);
+                await spotifyApi.addToMySavedTracks(temp);
+            }
+            res.render("playlistToFavorite", {
+                data: {
+                    user: user.body, tracks: unLikedTracks, playlist: playlist.body,
+                    message: unLikedTracksIds.length + " Tracks was added"
+                }
+            })
+        } else {
+            res.render("playlistTracks", {
+                data: {
+                    user: user.body, tracks: tracks, playlist: playlist.body,
+                    message: unLikedTracksIds.length + " Tracks was added"
+                }
+            })
+        }
+    } else {
         loginController.getLoginPage(req, res);
     }
 }
@@ -77,7 +95,7 @@ exports.getPlaylistTracks = async (req, res) => {
     }
 }
 
-async function getTracksByPlaylistId(playlistId, access_token){
+async function getTracksByPlaylistId(playlistId, access_token) {
     const spotifyApi = new SpotifyWebApi();
     spotifyApi.setAccessToken(access_token);
 
