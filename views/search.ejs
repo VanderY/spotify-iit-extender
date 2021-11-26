@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Extender</title>
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+</head>
+<body>
+<div id="page-container">
+
+    <%- include('header'); -%>
+
+    <div class="flexible-content">
+        <div class="search" style="margin-top: 100px;">
+            <form action="/search">
+                <label for="search" style="color: azure">Search:</label>
+                <input type="search" name="search" id="search" style="color: azure;">
+                <br>
+                <br>
+                <div class="dropdown" style="color: azure">
+                    <label for="searchParam">Search by:</label>
+                    <select name="searchParam" id="searchParam" style="color: azure;">
+                        <option value="byTrackName">by track name</option>
+                        <option value="byAlbumName">by album name</option>
+                        <option value="byArtistName">by artist name</option>
+                    </select>
+                    <button style="color: azure">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('footer'); -%>
+
+</body>
+</html>
