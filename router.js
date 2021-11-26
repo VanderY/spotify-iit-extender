@@ -4,12 +4,14 @@ const indexController = require("./contorllers/indexController")
 const loginController = require("./contorllers/loginController")
 const topTracks = require("./contorllers/toptracks");
 const topArtists = require("./contorllers/topArtists")
+const recommendations = require("./contorllers/recommendationsController")
 const recentlyPlayed = require("./contorllers/recentlyPlayed")
 const playlistsController = require("./contorllers/playlistsController");
 
 router.get("/callback", loginController.loginCallback)
 router.get("/", indexController.getHomePage)
 router.get("/top-tracks", topTracks.getToptracks)
+router.get("/recommendations", recommendations.getRecommendations)
 router.get("/top-artists", topArtists.getTopArtists)
 router.get("/top-artists/:timeRange", topArtists.getTopArtists)
 router.get("/recently-played", recentlyPlayed.getRecentlyPlayedTracks)
